@@ -1,0 +1,345 @@
+<odoo>
+<menuitem
+        id="employee_exit_app_menu"
+        name="Employee Exit"
+        sequence="25"
+        web_icon="employee_exit_form,static/description/icon.png"
+    />
+
+
+    <record id="view_form_recruitment_request" model="ir.ui.view">
+        <field name="name">hr.recruitment.request.form</field>
+        <field name="model">hr.recruitment.request</field>
+        <field name="arch" type="xml">
+            <form string="Recruitment Request">
+                <header>
+                    <button name="action_submit" string="MRF HR Approval" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="MRF CAO Approval" type="object"
+                            class="btn-primary" invisible="state != 'submitted'"
+                            groups="recruitment_request.group_recruitment_manager"/>
+
+                    <button name="action_reject" string="Reject Approval" type="object"
+                            class="btn-primary" invisible="state in 'rejected'"
+                            groups="recruitment_request.group_recruitment_approver"/>
+
+                    <button name="action_cao_to_hr" string="MRF Approved " type="object"
+                            class="btn-primary" invisible="state not in 'approved'"
+                            groups="recruitment_request.group_recruitment_approver"/>
+
+                    <button name="action_create_recruitment" type="object"
+                            string="MRF Published" class="btn-primary"
+                            invisible="state != 'hr_approved'" groups="recruitment_request.group_recruitment_manager"/>
+
+                    <button name="action_set_to_draft" string="Set to Draft" type="object"/>
+
+                    <button name="action_mark_done" string="Done" type="object" invisible="state != 'recruitment'"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted,approved,hr_approved,recruitment,done,rejected"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_recruitment_job"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-users" invisible="state != 'recruitment'">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Recruitment</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Meta Header Fields -->
+                    <span style="white-space: nowrap; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+                        MANPOWER REQUISITION FORM
+                    </span>
+                    <group>
+
+                        <group>
+                            <field name="number" nolabel="1" style="font-weight: bold; font-size: 11px; color: red;"
+                                   string=""/>
+
+                            <!--                            <field name="number" no_label="1" style="font-weight: bold; font-size: 12px; color: red;"/>-->
+                        </group>
+                        <!--                        <field name="number" no_label="1" style="font-weight: bold; font-size: 14px; color: red;"/>-->
+                        <group>
+                            <field name="request_date"/>
+                        </group>
+                        <group>
+                            <field name="requested_by"/>
+                            <field name="company_id"/>
+
+                        </group>
+                        <group>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+
+
+                    <separator string="Position &amp; Candidate Details"/>
+                    <group>
+                        <group string="Candidate Profile" colspan="1">
+                            <field name="edu_essential"/>
+                            <field name="edu_desirable"/>
+                            <field name="experience_required"/>
+                            <field name="preferred_gender" widget="radio"/>
+                            <field name="age_range"/>
+                            <field name="key_skills"/>
+                            <field name="job_description"/>
+                            <field name="salary_range"/>
+                        </group>
+                        <!-- Column 1: Position - 1 -->
+
+                        <group string="Position" colspan="1">
+                            <field name="position_title_1"/>
+                            <field name="requirement_type_1" widget="radio"/>
+                            <field name="number_of_positions_1"/>
+                            <field name="contract_type_id"/>
+                            <field name="location_1"/>
+                            <field name="joining_date_1"/>
+                            <field name="reporting_to_1" invisible="0"/>
+                        </group>
+                        <group colspan="1">
+
+                        </group>
+
+
+                    </group>
+
+
+                    <!-- Approvals Section -->
+                    <separator string="Approvals"/>
+                    <group>
+                        <group>
+                            <field name="approved_hr" readonly="1"/>
+                            <field name="requested_email" readonly="1" invisible="approved_hr == 0"/>
+                            <field name="request_by_sign" widget="image"
+                                   style="height:90px !important;width:100px !important;" required="state in 'draft'"/>
+
+                            <field name="rejected_by" readonly="1"/>
+
+                        </group>
+                        <group>
+                            <field name="approved_cao" readonly="1"/>
+                            <field name="approval_email" invisible="1"/>
+                            <field name="approved_hr_email"/>
+                            <field name="approved_by_sign" widget="image"
+                                   style="height:90px !important;width:100px !important;"/>
+                        </group>
+                        <group>
+                            <field name="approval_cao_name" readonly="1"/>
+                            <field name="cao_approval_email" readonly="1"/>
+                            <field name="approval_by_sign_cao" widget="image"
+                                   style="height:90px !important;width:100px !important;"/>
+                        </group>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_recruitment_request" model="ir.ui.view">
+        <field name="name">hr.recruitment.request.tree</field>
+        <field name="model">hr.recruitment.request</field>
+        <field name="arch" type="xml">
+            <tree string="Recruitment Requests">
+                <field name="position_title_1"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_hr_recruitment_request" model="ir.actions.act_window">
+        <field name="name">Recruitment Requests</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="action_hr_recruitment_request_draft" model="ir.actions.act_window">
+        <field name="name">Department New Recruitment</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+    </record>
+    <!-- Action for Submitted to Approval -->
+    <record id="action_hr_recruitment_request_submitted" model="ir.actions.act_window">
+        <field name="name">MRF HR Approval</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'submitted')]</field>
+    </record>
+
+    <!-- Action for Approved by Manager -->
+    <record id="action_hr_recruitment_request_approved" model="ir.actions.act_window">
+        <field name="name">MRF CAO Approval</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'approved')]</field>
+    </record>
+
+    <record id="action_hr_recruitment_request_hr_approved" model="ir.actions.act_window">
+        <field name="name">MRF Approved</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'hr_approved')]</field>
+    </record>
+
+
+    <record id="action_hr_recruitment_request_recruitment" model="ir.actions.act_window">
+        <field name="name">MRF Published</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'recruitment')]</field>
+    </record>
+
+
+    <record id="action_hr_recruitment_request_rejected" model="ir.actions.act_window">
+        <field name="name">MRF Rejected</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'rejected')]</field>
+    </record>
+
+    <record id="action_hr_recruitment_request_done_approval" model="ir.actions.act_window">
+        <field name="name">MRF Done</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'done')]</field>
+    </record>
+
+
+    <menuitem id="menu_hr_recruitment_request"
+              name="Recruitment Requests"
+              action="action_hr_recruitment_request"
+              groups="recruitment_request.group_recruitment_manager,group_recruitment_approver,group_recruitment_department_user"/>
+
+    <menuitem id="menu_hr_recruitment_request_draft"
+              name="Department New Recruitment"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_draft" sequence="0"
+              groups="recruitment_request.group_recruitment_manager,group_recruitment_department_user"/>
+
+    <menuitem id="menu_hr_recruitment_request_submitted"
+              name="MRF HR Approval"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_submitted" sequence="1"
+              groups="recruitment_request.group_recruitment_manager"/>
+
+    <!-- Menu for Approved by Manager -->
+    <menuitem id="menu_hr_recruitment_request_approved"
+              name="MRF CAO Approval"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_approved" sequence="2"
+              groups="recruitment_request.group_recruitment_approver"/>
+
+    <menuitem id="menu_hr_recruitment_request_hr_approved"
+              name="MRF Approved"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_hr_approved" sequence="3"
+              groups="recruitment_request.group_recruitment_manager"/>
+
+    <menuitem id="menu_hr_recruitment_request_recruitment"
+              name="MRF Published"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_recruitment" sequence="4"
+              groups="recruitment_request.group_recruitment_manager"/>
+
+    <menuitem id="menu_hr_recruitment_request_done"
+              name="MRF Done"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_done_approval" sequence="5"
+              groups="recruitment_request.group_recruitment_manager"/>
+
+    <menuitem id="menu_hr_recruitment_request_rejected"
+              name="MRF Rejected"
+              parent="menu_hr_recruitment_request"
+              action="action_hr_recruitment_request_rejected" sequence="6"
+              groups="recruitment_request.group_recruitment_manager"/>
+
+
+    <!--    email-->
+
+    <record id="recruitment_request_submit_email_templatesssss" model="mail.template">
+        <field name="name">Recruitment Request: Submitted</field>
+        <field name="model_id" ref="model_hr_recruitment_request"/>
+        <field name="email_from">{{ (object.company_id.email) }}</field>
+        <field name="email_to">{{ (object.approved_hr_email) }}</field>
+        <field name="subject">HR Approval Required: Recruitment Request for {{object.position_title_1}}</field>
+        <field name="body_html">
+            <![CDATA[
+                        <p>Hello &#160;<t t-out="object.reporting_to_1.name"/>.</p>
+                        <p>
+                            <t t-out="object.requested_by.name"/> has submitted a recruitment request for the position:
+                            <strong><t t-out="object.position_title_1"/></strong>.
+                        </p>
+                        <p>Please log in to Odoo to review and take action.</p>
+                ]]>
+        </field>
+    </record>
+
+
+    <record id="recruitment_request_submit_email_hr_required" model="mail.template">
+        <field name="name">Recruitment Request: HR APPROVED TO SEND CAO</field>
+        <field name="model_id" ref="model_hr_recruitment_request"/>
+        <field name="email_from">{{ (object.approved_hr_email) }}</field>
+        <field name="email_to">{{ (object.cao_approval_email) }}</field>
+        <field name="subject">CAO Approval Required: Recruitment Request for {{object.position_title_1}}</field>
+        <field name="body_html">
+            <![CDATA[
+                        <p>Hello &#160;<t t-out="object.approval_cao_name.name"/>.</p>
+                        <p>
+                            <t t-out="object.approved_cao.name"/> has submitted a recruitment request for the position:
+                            <strong><t t-out="object.position_title_1"/></strong>.
+                        </p>
+                        <p>Please log in to Odoo to review and take action.</p>
+                ]]>
+        </field>
+    </record>
+
+
+    <record id="recruitment_request_approveddd_email_template" model="mail.template">
+        <field name="name">Recruitment Request: Approved</field>
+        <field name="model_id" ref="model_hr_recruitment_request"/>
+        <field name="email_from">{{ (object.cao_approval_email) }}</field>
+        <field name="email_to">{{ (object.approved_hr_email) }}</field>
+        <field name="email_cc">{{ (object.requested_email) }}</field>
+        <field name="subject">Your Recruitment Request has been Approved</field>
+        <field name="body_html">
+            <![CDATA[
+                <p>Hello <t t-out="object.approved_cao.name"/>,</p>
+                <p>Your recruitment request for the position <strong><t t-out="object.position_title_1"/></strong> has been approved by <t t-out="object.approval_cao_name.name"/>.</p>
+                <p>You may now proceed to the recruitment process.</p>
+            ]]>
+        </field>
+    </record>
+
+    <record id="recruitment_request_rejected_email_template" model="mail.template">
+        <field name="name">Recruitment Request: Rejected</field>
+        <field name="model_id" ref="model_hr_recruitment_request"/>
+        <field name="email_from">{{ (object.cao_approval_email) }}</field>
+        <field name="email_to">{{ (object.approved_hr_email) }}</field>
+        <field name="email_cc">{{ (object.requested_email) }}</field>
+        <field name="subject">Your Recruitment Request has been Rejected</field>
+        <field name="body_html">
+            <![CDATA[
+            <div>
+                <p>Hello <t t-out="object.approved_cao.name"/> ,</p>
+                <p>We regret to inform you that your recruitment request for the position <strong><t t-out="object.position_title_1"/></strong> has been <strong>rejected</strong>.</p>
+                <p>Please review the feedback or reach out to your manager for further clarification.</p>
+                <p>Thank you.</p>
+            </div>
+        ]]>
+        </field>
+    </record>
+
+</odoo>

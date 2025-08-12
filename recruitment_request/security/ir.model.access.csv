@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_recruitment_request_user,access.hr.recruitment.request.user,recruitment_request.model_hr_recruitment_request,base.group_user,1,1,1,0
+access_recruitment_request_department_user,Recruitment Request Department User,recruitment_request.model_hr_recruitment_request,recruitment_request.group_recruitment_department_user,1,1,1,0
+access_hr_recruitment_request_approver,Recruitment Request Approver Access,recruitment_request.model_hr_recruitment_request,recruitment_request.group_recruitment_approver,1,1,1,0
+access_recruitment_request_manager,Recruitment Request Manager Access,recruitment_request.model_hr_recruitment_request,recruitment_request.group_recruitment_manager,1,1,1,1

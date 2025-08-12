@@ -1,0 +1,7 @@
+<odoo>
+  <record id="model_hr_recruitment_request" model="ir.model">
+    <field name="name">hr.recruitment.request</field>
+    <field name="model">hr.recruitment.request</field>
+    <field name="state">base</field>
+  </record>
+</odoo>
