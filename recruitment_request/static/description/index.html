@@ -68,77 +68,77 @@
         <img class="banner" src="./banners.png" alt="Recruitment request workflow banner">
     </header>
 
-    <main class="grid">
-        <section class="card">
-            <h2>Overview</h2>
-            <p><strong>Recruitment Request</strong> provides a clear, auditable hiring request flow: raise a request from a department user, obtain HR and CAO approvals, and let HR create the recruitment record. Designed for multi‑company environments with configurable rules and automated notifications at every stage.</p>
-        </section>
+<!--    <main class="grid">-->
+<!--        <section class="card">-->
+<!--            <h2>Overview</h2>-->
+<!--            <p><strong>Recruitment Request</strong> provides a clear, auditable hiring request flow: raise a request from a department user, obtain HR and CAO approvals, and let HR create the recruitment record. Designed for multi‑company environments with configurable rules and automated notifications at every stage.</p>-->
+<!--        </section>-->
 
-        <section class="card">
-            <h2>Approval Workflow</h2>
-            <div class="flow" aria-label="Raise Dept User to HR Approval to CAO Approval to HR Create Recruitment">
-                <span class="pill">Raise (Dept User)</span><span class="arrow" aria-hidden="true"></span>
-                <span class="pill">HR Approval</span><span class="arrow" aria-hidden="true"></span>
-                <span class="pill">CAO Approval</span><span class="arrow" aria-hidden="true"></span>
-                <span class="pill">HR: Create Recruitment</span>
-            </div>
-            <p style="margin-top:10px">Each stage supports: signature, date, file upload, and an automatic email trigger (configurable template per stage).</p>
-        </section>
+<!--        <section class="card">-->
+<!--            <h2>Approval Workflow</h2>-->
+<!--            <div class="flow" aria-label="Raise Dept User to HR Approval to CAO Approval to HR Create Recruitment">-->
+<!--                <span class="pill">Raise (Dept User)</span><span class="arrow" aria-hidden="true"></span>-->
+<!--                <span class="pill">HR Approval</span><span class="arrow" aria-hidden="true"></span>-->
+<!--                <span class="pill">CAO Approval</span><span class="arrow" aria-hidden="true"></span>-->
+<!--                <span class="pill">HR: Create Recruitment</span>-->
+<!--            </div>-->
+<!--            <p style="margin-top:10px">Each stage supports: signature, date, file upload, and an automatic email trigger (configurable template per stage).</p>-->
+<!--        </section>-->
 
-        <section class="card">
-            <h2>Key Features</h2>
-            <div class="cards">
-                <div class="mini">
-                    <h3>✅ Raise Request (Department)</h3>
-                    <p>Department user fills role details, justification, cost centre, and attachments.</p>
-                </div>
-                <div class="mini">
-                    <h3>✉️ HR & CAO Email Triggers</h3>
-                    <p>Configurable templates fired on submit, HR approve/reject, CAO approve/reject, and when HR creates the recruitment position.</p>
-                </div>
-                <div class="mini">
-                    <h3>🖋 Stage Signatures & Uploads</h3>
-                    <p>Record signature (binary or e‑sig), signed date, and allow file uploads at every approval stage.</p>
-                </div>
-                <div class="mini">
-                    <h3>🌐 Multi‑Company / Rule‑Based</h3>
-                    <p>Company‑aware rules: route based on company, department, role seniority or cost thresholds.</p>
-                </div>
-                <div class="mini">
-                    <h3>⚙️ HR: Create Recruitment</h3>
-                    <p>After approvals, HR can convert the request to a recruitment record (job, requisition, or vacancy) with one click.</p>
-                </div>
-            </div>
-        </section>
+<!--        <section class="card">-->
+<!--            <h2>Key Features</h2>-->
+<!--            <div class="cards">-->
+<!--                <div class="mini">-->
+<!--                    <h3>✅ Raise Request (Department)</h3>-->
+<!--                    <p>Department user fills role details, justification, cost centre, and attachments.</p>-->
+<!--                </div>-->
+<!--                <div class="mini">-->
+<!--                    <h3>✉️ HR & CAO Email Triggers</h3>-->
+<!--                    <p>Configurable templates fired on submit, HR approve/reject, CAO approve/reject, and when HR creates the recruitment position.</p>-->
+<!--                </div>-->
+<!--                <div class="mini">-->
+<!--                    <h3>🖋 Stage Signatures & Uploads</h3>-->
+<!--                    <p>Record signature (binary or e‑sig), signed date, and allow file uploads at every approval stage.</p>-->
+<!--                </div>-->
+<!--                <div class="mini">-->
+<!--                    <h3>🌐 Multi‑Company / Rule‑Based</h3>-->
+<!--                    <p>Company‑aware rules: route based on company, department, role seniority or cost thresholds.</p>-->
+<!--                </div>-->
+<!--                <div class="mini">-->
+<!--                    <h3>⚙️ HR: Create Recruitment</h3>-->
+<!--                    <p>After approvals, HR can convert the request to a recruitment record (job, requisition, or vacancy) with one click.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
 
-        <section class="card">
-            <h2>Compatibility &amp; Dependencies</h2>
-            <div class="kv">
-                <div>Odoo Versions</div>
-                <div>17.0 (Community &amp; Enterprise)</div>
-                <div>Depends</div>
-                <div><code>hr</code>, <code>hr_recruitment</code>, <code>mail</code></div>
-                <div>License</div>
-                <div>Free: <code>LGPL‑3</code> • Paid: <code>OPL‑1</code></div>
-            </div>
-        </section>
+<!--        <section class="card">-->
+<!--            <h2>Compatibility &amp; Dependencies</h2>-->
+<!--            <div class="kv">-->
+<!--                <div>Odoo Versions</div>-->
+<!--                <div>17.0 (Community &amp; Enterprise)</div>-->
+<!--                <div>Depends</div>-->
+<!--                <div><code>hr</code>, <code>hr_recruitment</code>, <code>mail</code></div>-->
+<!--                <div>License</div>-->
+<!--                <div>Free: <code>LGPL‑3</code> • Paid: <code>OPL‑1</code></div>-->
+<!--            </div>-->
+<!--        </section>-->
 
-        <section class="card">
-            <h2>Implementation Notes</h2>
-            <ul>
-                <li>Role‑based access control: use record rules for Dept User, HR, and CAO per company.</li>
-                <li>Email templates: create a template per stage and wire them to server actions or automated activities.</li>
-                <li>Signatures: store binary signatures and signed date fields on the request; optionally integrate e‑sign services.</li>
-                <li>Attachments: use a one2many to store uploaded files per stage for audit.</li>
-                <li>Conversion action: provide a smart button for HR to convert request → recruitment/job opening.</li>
-            </ul>
-        </section>
+<!--        <section class="card">-->
+<!--            <h2>Implementation Notes</h2>-->
+<!--            <ul>-->
+<!--                <li>Role‑based access control: use record rules for Dept User, HR, and CAO per company.</li>-->
+<!--                <li>Email templates: create a template per stage and wire them to server actions or automated activities.</li>-->
+<!--                <li>Signatures: store binary signatures and signed date fields on the request; optionally integrate e‑sign services.</li>-->
+<!--                <li>Attachments: use a one2many to store uploaded files per stage for audit.</li>-->
+<!--                <li>Conversion action: provide a smart button for HR to convert request → recruitment/job opening.</li>-->
+<!--            </ul>-->
+<!--        </section>-->
 
-        <section class="card">
-            <h2>Contact &amp; Support</h2>
-            <p>For support, customization, or to adjust routing rules, please <a href="mailto:akarthikeyan104@gmail.com">contact us</a>.</p>
-        </section>
-    </main>
+<!--        <section class="card">-->
+<!--            <h2>Contact &amp; Support</h2>-->
+<!--            <p>For support, customization, or to adjust routing rules, please <a href="mailto:akarthikeyan104@gmail.com">contact us</a>.</p>-->
+<!--        </section>-->
+<!--    </main>-->
 
 </div>
 </body>
