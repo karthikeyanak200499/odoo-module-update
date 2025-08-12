@@ -1,0 +1,674 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_form_hr_employee_exit" model="ir.ui.view">
+        <field name="name">hr.employee.exit.form</field>
+        <field name="model">hr.employee.exit</field>
+        <field name="arch" type="xml">
+            <form string="EMPLOYEE EXIT INTERVIEW FORM">
+                <header>
+
+
+                    <button name="action_submit_to_supervisor" type="object" string="Submit to Dept. Manager"
+                            invisible="state != 'draft'" class="btn-primary"
+                    />
+
+                    <button name="action_approve_hr" type="object" string="HR Approve"
+                            invisible="state != 'supervisor_submitted'" class="btn-success"
+                            groups="employee_exit_form.group_exit_form_dept_manager"/>
+
+                    <button name="action_approve_cao" type="object" string="CAO Approve"
+                            invisible="state != 'hr_approved'" class="btn-success"
+                            groups="employee_exit_form.group_exit_form_hr"/>
+
+                    <button name="action_proceed_to_hr" type="object" string="Proceed to HR"
+                            invisible="state != 'cao_approved'" class="btn-success"
+                            groups="employee_exit_form.group_exit_form_cao"/>
+
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state not in ['hr_approved', 'cao_approved', 'cao_to_hr_approval']"
+                            class="btn-danger"
+                            groups="employee_exit_form.group_exit_form_cao"/>
+
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft"
+                            invisible="state in ('draft',' supervisor_submitted', 'hr_approved')"
+                            class="btn-secondary"
+                            groups="employee_exit_form.group_exit_form_cao"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,supervisor_submitted,hr_approved,cao_approved,cao_to_hr_approval ,rejected"/>
+
+
+                </header>
+
+                <sheet>
+
+                    <div style="text-align: center; font-weight: bold; font-size: 20px; margin-bottom: 8px; color: red;">
+                        EMPLOYEE EXIT INTERVIEW FORM
+                        <br/>
+                        <br/>
+                    </div>
+                    <group>
+
+                        <group>
+
+                            <field name="interview_date"/>
+                            <br/>
+                        </group>
+
+                        <group>
+                            <field name="company_id"/>
+                        </group>
+                        <separator string="Employee Information"
+                                   style="color: green; font-weight: bold; font-size: 15px;"/>
+                        <group>
+                            <field name="employee_id" string="Name"/>
+                            <field name="supervisor_id" string="Dept. Manager"/>
+                            <field name="reporting_to_hr"
+                                   invisible="state not in ['supervisor_submitted', 'hr_approved', 'cao_approved', 'cao_to_hr_approval']"
+                                   readonly="1"/>
+
+                            <field name="reporting_to_cao"
+                                   invisible="state not in ['hr_approved', 'cao_approved', 'cao_to_hr_approval']"
+                                   readonly="1"/>
+
+
+                            <field name="last_date"/>
+                        </group>
+                        <group>
+                            <field name="designation" readonly="1"/>
+                            <field name="supervisor_title" readonly="1" string="Dept. Manager Designation"/>
+                            <field name="approval_email_hr"
+                                   invisible="state not in ['supervisor_submitted', 'hr_approved', 'cao_approved', 'cao_to_hr_approval']"
+                                   readonly="1"/>
+
+                            <field name="approval_email_cao"
+                                   invisible="state not in ['hr_approved', 'cao_approved', 'cao_to_hr_approval']"
+                                   readonly="1"/>
+
+                            <field name="length_of_service"/>
+
+                        </group>
+                    </group>
+                    <separator string="Reason for Leaving" style="color: green; font-weight: bold; font-size: 15px;"/>
+                    <group>
+                        <field name="reason_instruction" readonly="1"
+                               style=" font-size: 16px; margin-bottom: 8px; color: red;" string=''/>
+
+                    </group>
+
+                    <group>
+                        <separator string="Resignation Reasons" colspan="2"
+                                   style="color: green; font-weight: bold; font-size: 15px;"/>
+                    </group>
+
+                    <group col="2">
+
+                        <group>
+                            <field name="reason_new_position" string="Took another position"/>
+                            <field name="reason_family" string="Home/family needs"/>
+                            <field name="reason_health" string="Health"/>
+                            <field name="reason_relocation" string="Relocation"/>
+                            <field name="reason_travel" string="Travel requirements"/>
+                            <field name="reason_training" string="Lack of training"/>
+                            <field name="reason_opportunities" string="Lack of opportunities"/>
+                        </group>
+
+                        <group>
+                            <field name="reason_culture" string="Culture"/>
+                            <field name="reason_study" string="To return to study"/>
+                            <field name="reason_type_work" string="Dissatisfaction with type of work"/>
+                            <field name="reason_salary" string="Dissatisfaction with salary/benefits"/>
+                            <field name="reason_conditions" string="Dissatisfaction with working conditions"/>
+                            <field name="reason_other_1" string="Other"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <separator string="Laid Off Reasons" colspan="2"
+                                   style="color: green; font-weight: bold; font-size: 15px;"/>
+                    </group>
+
+                    <group col="2">
+                        <group>
+                            <field name="reason_performance" string="Poor performance"/>
+                            <field name="reason_conduct" string="Inappropriate Conduct"/>
+                        </group>
+                        <group>
+                            <field name="reason_policy" string="Violation of Company Policy"/>
+                            <field name="reason_other_2" string="Other"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <separator string="Other Reasons" colspan="2"
+                                   style="color: green; font-weight: bold; font-size: 15px;"/>
+                    </group>
+
+                    <group col="2">
+                        <group>
+                            <field name="reason_retirement" string="Retirement"/>
+                        </group>
+                        <group>
+                            <field name="reason_other_3" string="Other"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <separator string="Employee Feedback" colspan="4"
+                                   style="color: green; font-weight: bold; font-size: 15px;"/>
+                    </group>
+
+                    <group col="2">
+
+
+                        <group>
+                            <field name="feedback_leave_factor" readonly="1"
+                                   style=" margin-bottom: 8px;" string=''/>
+                            <field name="feedback_leave_entry" string='' placeholder="please enter here...!"/>
+                        </group>
+                        <br/>
+                        <br/>
+
+                        <group>
+                            <field name="feedback_most_satisfyingss" readonly="1"
+                                   style=" margin-bottom: 8px;" string=''/>
+                            <field name="feedback_most_entry" string='' placeholder="please enter here...!"/>
+                        </group>
+
+                        <br/>
+                        <br/>
+
+                        <group>
+                            <field name="feedback_least_satisfyings" readonly="1"
+                                   style=" margin-bottom: 8px;" string=''/>
+                            <field name="feedback_least_entry" string='' placeholder="please enter here...!"/>
+                        </group>
+
+                        <br/>
+                        <br/>
+
+                        <group>
+                            <field name="feedback_job_expectationss" readonly="1"
+                                   style="margin-bottom: 8px;" string=''/>
+                            <field name="feedback_job_expet_entry" string='' placeholder="please enter here...!"/>
+                        </group>
+
+                        <br/>
+                        <br/>
+                    </group>
+                    <group>
+
+                        <group>
+                            <field name="feedback_supervisor_expect" readonly="1"
+                                   style=" margin-bottom: 8px;" string=''/>
+                            <field name="feedback_supervisor_rating" string='' widget="radio"/>
+                        </group>
+                        <br/>
+                        <br/>
+                        <group>
+                            <field name="overall_satisfy_expect" readonly="1"
+                                   style=" margin-bottom: 8px;" string=''/>
+                            <field name="overall_satisfy_expect_rating" string='' widget="radio"/>
+                        </group>
+
+                        <br/>
+                        <br/>
+
+                        <div style="display: flex; gap: 24px; align-items: center;">
+                            <field name="had_problemssss" string="" readonly="1"
+                            />
+                            <field name="had_problems" widget="radio"/>
+                        </div>
+                    </group>
+
+                    <br/>
+                    <br/>
+                    <group>
+                        <field name="had_prblm_expect" readonly="1"
+                               style="font-weight: bold; font-size: 14px; margin-bottom: 8px;" string=''
+                               invisible="had_problems == 'no'"/>
+                        <field name="had_prblm_entry" string='' placeholder="If yes, please briefly comment...!"
+                               invisible="had_problems == 'no'"/>
+                    </group>
+
+
+                    <!--                    <group>-->
+
+                    <separator string="Employee Acknowledgement"
+                               style="color: green; font-weight: bold; font-size: 15px;"/>
+                    <br/>
+                    <br/>
+                    <group>
+
+                        <group col="2">
+                            <field name="employee_acknowledgement" readonly="1"
+                                   style=" margin-bottom: 8px; text-align: justify;"
+                                   string=''
+                            />
+
+                        </group>
+                        <group>
+                            <field name="employee_acknowledgement_signature" widget="image"
+                                   style="height:90px !important;width:100px !important;" required="state in 'draft'"/>
+                            <field name="employee_acknowledgement_sign_date" required="state in 'draft'"/>
+
+                        </group>
+                    </group>
+                    <br/>
+                    <!--                    manager approval-->
+                    <separator string="Manager Acknowledgement"
+                               style="color: green; font-weight: bold; font-size: 15px;"
+                               invisible="state not in ['supervisor_submitted', 'hr_approved', 'cao_approved', 'cao_to_hr_approval']"/>
+                    <br/>
+                    <br/>
+                    <group invisible="state not in ['supervisor_submitted', 'hr_approved', 'cao_approved', 'cao_to_hr_approval']">
+
+                        <group col="2">
+                            <field name="manager_acknowledgement" readonly="1"
+                                   style=" margin-bottom: 8px; text-align: justify;"
+                                   string=""/>
+                        </group>
+
+                        <group>
+                            <field name="manager_ack_signature"
+                                   widget="image"
+                                   style="height:90px !important;width:100px !important;"
+                                   required="state in 'supervisor_submitted'"/>
+                            <field name="manager_ack_date" required="state in 'supervisor_submitted'"/>
+                        </group>
+                    </group>
+                    <br/>
+
+
+                    <!--                    <group>-->
+                    <separator string="HR  Acknowledgement"
+                               style="color: green; font-weight: bold; font-size: 15px;"
+                               invisible="state not in ['hr_approved', 'cao_approved', 'cao_to_hr_approval']"/>
+                    <br/>
+                    <br/>
+                    <group invisible="state not in ['hr_approved', 'cao_approved', 'cao_to_hr_approval']">
+
+                        <group col="2">
+                            <field name="hr_supervisor_acknowledgement" readonly="1"
+                                   style=" margin-bottom: 8px; text-align: justify;"
+                                   string=""/>
+                        </group>
+
+                        <group>
+                            <field name="hr_supervisor_signature"
+                                   widget="image"
+                                   style="height:90px !important;width:100px !important;"
+                                   required="state in 'hr_approved'"/>
+                            <field name="hr_supervisor_sign_date" required="state in 'hr_approved'"/>
+                        </group>
+                    </group>
+
+                    <br/>
+
+                    <separator string="CAO  Acknowledgement"
+                               style="color: green; font-weight: bold; font-size: 15px;"
+                               invisible="state not in ['cao_approved', 'cao_to_hr_approval']"/>
+                    <br/>
+                    <br/>
+                    <group invisible="state not in ['cao_approved', 'cao_to_hr_approval']">
+
+                        <group col="2">
+                            <field name="cao_acknowledgement" readonly="1"
+                                   style=" margin-bottom: 8px; text-align: justify;"
+                                   string=""/>
+                        </group>
+
+                        <group>
+                            <field name="cao_signature"
+                                   widget="image"
+                                   style="height:90px !important;width:100px !important;"
+                                   required="state in 'cao_approved'"/>
+                            <field name="cao_sign_date" required="state in 'cao_approved'"/>
+                        </group>
+                    </group>
+
+                    <br/>
+
+                    <div>
+                        <field name="exit_form_note" readonly="1"
+                               style="text-align: left;  font-size: 15px; margin-bottom: 8px; "
+                               string=''/>
+                        <br/>
+                        <br/>
+
+                    </div>
+
+                    <div style="text-align: center; font-weight: bold; font-size: 20px; margin-bottom: 8px; text-transform: uppercase; color: red;">
+                        Equipment and Assets Return
+                        <br/>
+                        <br/>
+                    </div>
+
+                    <div>
+                        <field name="equipment_return_note" readonly="1"
+                               style="text-align: left;   font-size: 15px; margin-bottom: 8px; "
+                               string=''/>
+                        <br/>
+                        <br/>
+
+                    </div>
+
+                    <field name="equipment_lines">
+                        <tree editable="bottom" string="Returned Items">
+                            <field name="item_description"/>
+                            <field name="serial_number"/>
+                            <field name="return_date"/>
+                        </tree>
+                    </field>
+
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_tree_hr_employee_exit" model="ir.ui.view">
+        <field name="name">hr.employee.exit.tree</field>
+        <field name="model">hr.employee.exit</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Exit Interviews">
+                <field name="employee_id"/>
+                <field name="company_id"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hr_employee_exit" model="ir.actions.act_window">
+        <field name="name">Employee Exit Interview</field>
+        <field name="res_model">hr.employee.exit</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu -->
+
+    <menuitem id="menu_hr_employee_exit_root" name="Employee Resignation"
+              web_icon="employee_exit_form,static/description/icon.png"
+              groups="base.group_user"
+              sequence="21"/>
+
+    <menuitem id="menu_hr_employee_exit" name="New Exit Interviews" parent="menu_hr_employee_exit_root"
+              action="action_hr_employee_exit" groups="employee_exit_form.group_exit_form_user"
+    />
+
+    <!--    new menu-->
+
+
+    <!-- Draft depart  Exit Forms -->
+    <record id="action_employee_supervisor_submit" model="ir.actions.act_window">
+        <field name="name">Department Manager Approval</field>
+        <field name="res_model">hr.employee.exit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'supervisor_submitted')]</field>
+    </record>
+
+    <menuitem id="menu_employee_approve_supervisor"
+              name="Department Manager Approval"
+              parent="employee_exit_form.menu_hr_employee_exit_root"
+              action="action_employee_supervisor_submit"
+              groups="employee_exit_form.group_exit_form_dept_manager"
+              sequence="10"/>
+
+
+    <!-- HR Approved Exit Forms -->
+    <record id="action_employee_exit_hr_approved" model="ir.actions.act_window">
+        <field name="name">HR Approved Exit Forms</field>
+        <field name="res_model">hr.employee.exit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'hr_approved')]</field>
+    </record>
+
+    <menuitem id="menu_employee_exit_hr_approved"
+              name="HR Approved"
+              parent="employee_exit_form.menu_hr_employee_exit_root"
+              action="action_employee_exit_hr_approved"
+              groups="employee_exit_form.group_exit_form_hr" sequence="20"/>
+
+
+    <!-- CAO Approved Exit Forms -->
+    <record id="action_employee_exit_cao_approved" model="ir.actions.act_window">
+        <field name="name">CAO Approved Exit Forms</field>
+        <field name="res_model">hr.employee.exit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'cao_approved')]</field>
+    </record>
+
+    <menuitem id="menu_employee_exit_cao_approved"
+              name="CAO Approved"
+              parent="employee_exit_form.menu_hr_employee_exit_root"
+              action="action_employee_exit_cao_approved"
+              groups="employee_exit_form.group_exit_form_cao"
+              sequence="30"/>
+
+
+    <!-- Finalized (Done) Exit Forms -->
+    <record id="action_employee_exit_done" model="ir.actions.act_window">
+        <field name="name">CAO Approval Exit Forms</field>
+        <field name="res_model">hr.employee.exit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'cao_to_hr_approval')]</field>
+    </record>
+
+    <menuitem id="menu_employee_exit_done"
+              name="CAO Approval Exit Forms"
+              parent="employee_exit_form.menu_hr_employee_exit_root"
+              action="action_employee_exit_done"
+              groups="employee_exit_form.group_exit_form_hr"
+              sequence="40"/>
+
+
+    <!-- Rejected Exit Forms -->
+    <record id="action_employee_exit_rejected" model="ir.actions.act_window">
+        <field name="name">Rejected Exit Forms</field>
+        <field name="res_model">hr.employee.exit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'rejected')]</field>
+    </record>
+
+    <menuitem id="menu_employee_exit_rejected"
+              name="Rejected"
+              parent="employee_exit_form.menu_hr_employee_exit_root"
+              action="action_employee_exit_rejected"
+              groups="employee_exit_form.group_exit_form_hr"
+              sequence="50"/>
+
+
+    <!-- 1. User submits to Dept. Manager -->
+    <record id="mail_template_exit_submit" model="mail.template">
+        <field name="name">Exit Form - Submitted to Department Manager</field>
+        <field name="email_from">{(user.email or 'no-reply@example.com')|safe}</field>
+        <field name="subject">[Exit Form] Submitted by {{object.employee_id.name}}</field>
+        <field name="model_id" ref="employee_exit_form.model_hr_employee_exit"/>
+        <field name="email_to">{{object.supervisor_id.work_email}}</field>
+        <field name="body_html" type="html">
+
+            <p>Hello &#160;<t t-out="object.supervisor_id.name"/>,
+            </p>
+
+            <p>
+                I am writing to formally inform you that I have submitted my exit form as part of the official
+                offboarding process. This communication is intended to ensure transparency and to facilitate any
+                necessary departmental coordination during the transition period.
+            </p>
+
+            <p>
+                Please let me know if there are any specific departmental procedures or documentation that I should
+                complete prior to my final working day, which is scheduled for
+                <strong>
+                    <t t-out="object.last_date"/>
+                </strong>
+                .
+            </p>
+
+            <p>
+                I remain committed to ensuring a smooth handover of my responsibilities and will coordinate closely
+                with relevant team members to support continuity.
+            </p>
+
+            <p>
+                Thank you for your guidance and support throughout my tenure in the department.
+            </p>
+
+
+        </field>
+    </record>
+
+    <!-- 2. Dept. Manager to HR -->
+    <record id="mail_template_exit_to_hr" model="mail.template">
+        <field name="name">Exit Form - Sent to HR</field>
+        <field name="email_from">{{(user.email or 'no-reply@example.com')}}</field>
+        <field name="subject">[Exit Form] {{object.employee_id.name}} sent to HR</field>
+        <field name="model_id" ref="employee_exit_form.model_hr_employee_exit"/>
+        <field name="email_to">{{object.approval_email_hr}}</field>
+        <field name="body_html" type="html">
+
+            <p>Dear &#160;<t t-out="object.reporting_to_hr.name"/>,
+            </p>
+            <p>
+                After serious review of the exit form as part of the offboarding process,
+                I approve exit formalities from the department. I will proceed to forward the form
+                to the HR department to initiate the final clearance procedures.
+            </p>
+
+            <p>
+                Please let me know if any additional information or departmental formalities
+                are required prior to your endorsement.
+            </p>
+
+            <p>
+                I appreciate your support and guidance throughout my tenure
+                and remain committed to ensuring a smooth transition.
+            </p>
+
+            <p>Thank you for your time and consideration.</p>
+
+        </field>
+    </record>
+
+    <!-- 3. HR to CAO -->
+    <record id="mail_template_exit_to_cao" model="mail.template">
+        <field name="name">Exit Form - Sent to CAO</field>
+        <field name="email_from">{{(user.email or 'no-reply@example.com')}}</field>
+        <field name="subject">[Exit Form] Request for CAO Approval - {{object.employee_id.name}}</field>
+        <field name="model_id" ref="employee_exit_form.model_hr_employee_exit"/>
+        <field name="email_to">{{object.approval_email_cao}}</field>
+        <field name="body_html" type="html">
+
+            <p>Dear &#160;<t t-out="object.reporting_to_cao.name"/>,
+            </p>
+            <p>
+                Please find attached the completed exit form for Mr./Ms.
+                <strong>
+                    <t t-out="object.employee_id.name"/>
+                </strong>
+                (Employee ID:<t t-out="object.employee_id.emp_code"/>),
+                who has initiated the formal separation process from the organization.
+                The form has been reviewed and approved by the respective department head.
+            </p>
+
+            <p>
+                We kindly request your review and final approval to proceed with the remaining
+                formalities of the exit process. Should you require any additional documentation
+                or clarification, please feel free to let us know.
+            </p>
+
+            <p>Thank you for your attention and support.</p>
+        </field>
+    </record>
+
+    <!-- 4. CAO Approval/Rejection Notification -->
+    <record id="mail_template_exit_final" model="mail.template">
+        <field name="name">Exit Form - CAO Final Decision</field>
+        <field name="email_from">{{(user.email or 'no-reply@example.com')}}</field>
+        <field name="subject">[Exit Form] Final Decision for {{object.employee_id.name}}</field>
+        <field name="model_id" ref="employee_exit_form.model_hr_employee_exit"/>
+        <field name="email_to">
+            {{object.approval_email_hr}}
+        </field>
+        <field name="email_cc">
+        </field>
+        <field name="body_html" type="html">
+
+
+            <p>Dear &#160;<t t-out="object.reporting_to_hr.name"/>,
+            </p>
+            <p>
+                This is to formally inform you that your exit form has been reviewed and approved
+                by all relevant authorities, including your department head and management.
+                The HR department will now proceed with the final clearance and settlement procedures
+                as per company policy.
+            </p>
+
+            <p>
+                Please ensure that all remaining formalities, including handover of assets
+                and documentation, are completed prior to your last working day on
+                <strong>
+                    <t t-out="object.last_date"/>
+                </strong>
+                .
+            </p>
+
+            <p>
+                We appreciate your contributions during your tenure at
+                <t t-out="object.company_id.name"/>
+                and wish you continued success in your future endeavors.
+            </p>
+
+
+        </field>
+    </record>
+
+    <record id="mail_template_exit_final_reject" model="mail.template">
+        <field name="name">Exit Form - CAO Final Decision</field>
+        <field name="email_from">{{(user.email or 'no-reply@example.com')}}</field>
+        <field name="subject">[Exit Form] Final Decision for {{object.employee_id.name}}</field>
+        <field name="model_id" ref="employee_exit_form.model_hr_employee_exit"/>
+        <field name="email_to">
+            {{object.supervisor_id.work_email}},
+            {{object.approval_email_hr}}
+        </field>
+        <field name="email_cc">
+            {{object.employee_id.work_email}},
+        </field>
+        <field name="body_html" type="html">
+
+            <p>Dear &#160;<t t-out="object.reporting_to_hr.name"/>,
+            </p>
+            <p>
+                This is to formally inform you that your exit form has been reviewed and approved
+                by all relevant authorities, including your department head and management.
+                The HR department will now proceed with the final clearance and settlement procedures
+                as per company policy.
+            </p>
+
+            <p>
+                Please ensure that all remaining formalities, including handover of assets
+                and documentation, are completed prior to your last working day on
+                <strong>
+                    <t t-out="object.last_date"/>
+                </strong>
+                .
+            </p>
+
+            <p>
+                We appreciate your contributions during your tenure at
+                <t t-out="object.company_id.name"/>
+                and wish you continued success in your future endeavors.
+            </p>
+
+        </field>
+    </record>
+</odoo>
