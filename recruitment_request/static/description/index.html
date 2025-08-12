@@ -1,145 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Recruitment Request – Odoo 17</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        :root{
-          --bg:#f7f9fc; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
-          --brand:#6c5ce7; --brand2:#00cec9; --card:#ffffff;
-          --pill:#eef2ff; --ok:#10b981; --warn:#f59e0b;
-        }
-        *{box-sizing:border-box}
-        html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",Roboto,Arial,sans-serif}
-        .wrap{max-width:1100px;margin:0 auto;padding:22px}
-        header.hero{
-          background:linear-gradient(135deg, rgba(108,92,231,.95), rgba(0,206,201,.90));
-          color:#fff;border-radius:14px;padding:26px; position:relative; overflow:hidden
-        }
-        .hero-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-        .app-icon{width:56px;height:56px;border-radius:12px;border:2px solid rgba(255,255,255,.5);background:#fff url('./icon.png') center/cover no-repeat}
-        h1{margin:0;font-size:30px}
-        .subtitle{opacity:.95;margin-top:4px}
-        .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-        .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35)}
-        .banner{display:block;width:100%;max-height:300px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.35);margin-top:14px}
-        .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
-        section.card{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-        h2{margin:0 0 10px 0;font-size:20px;color:#0f66c3}
-        p{margin:0 0 10px 0}
-        ul{margin:0 0 0 18px;padding:0}
-        li{margin:6px 0}
-        .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-        .shots img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
-        /* Workflow pills with arrows */
-        .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-        .pill{background:var(--pill);border:1px solid var(--line);color:#334155;font-weight:600;padding:8px 12px;border-radius:999px}
-        .arrow{width:18px;height:2px;background:linear-gradient(90deg,var(--brand),var(--brand2));position:relative}
-        .arrow::after{content:"";position:absolute;right:-3px;top:-4px;border-left:6px solid var(--brand2);border-top:5px solid transparent;border-bottom:5px solid transparent}
-        /* Feature cards */
-        .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-        .mini{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
-        .mini h3{margin:0 0 6px 0;font-size:15px}
-        .kv{display:grid;grid-template-columns:180px 1fr;gap:10px}
-        .callout{border-left:4px solid var(--brand);background:#f2f5ff;padding:10px;border-radius:6px}
-        .footer{color:var(--muted);text-align:center;margin:14px 0 6px}
-        a{color:#6c5ce7;text-decoration:none} a:hover{text-decoration:underline}
-        @media (max-width:720px){ h1{font-size:26px} }
-    </style>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>Recruitment Request – Odoo 17</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <style>-->
+<!--        :root{-->
+<!--          &#45;&#45;bg:#f7f9fc; &#45;&#45;ink:#1f2937; &#45;&#45;muted:#6b7280; &#45;&#45;line:#e5e7eb;-->
+<!--          &#45;&#45;brand:#6c5ce7; &#45;&#45;brand2:#00cec9; &#45;&#45;card:#ffffff;-->
+<!--          &#45;&#45;pill:#eef2ff; &#45;&#45;ok:#10b981; &#45;&#45;warn:#f59e0b;-->
+<!--        }-->
+<!--        *{box-sizing:border-box}-->
+<!--        html,body{margin:0;padding:0;background:var(&#45;&#45;bg);color:var(&#45;&#45;ink);font:16px/1.6 "Segoe UI",Roboto,Arial,sans-serif}-->
+<!--        .wrap{max-width:1100px;margin:0 auto;padding:22px}-->
+<!--        header.hero{-->
+<!--          background:linear-gradient(135deg, rgba(108,92,231,.95), rgba(0,206,201,.90));-->
+<!--          color:#fff;border-radius:14px;padding:26px; position:relative; overflow:hidden-->
+<!--        }-->
+<!--        .hero-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap}-->
+<!--        .app-icon{width:56px;height:56px;border-radius:12px;border:2px solid rgba(255,255,255,.5);background:#fff url('./icon.png') center/cover no-repeat}-->
+<!--        h1{margin:0;font-size:30px}-->
+<!--        .subtitle{opacity:.95;margin-top:4px}-->
+<!--        .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}-->
+<!--        .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35)}-->
+<!--        .banner{display:block;width:100%;max-height:300px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.35);margin-top:14px}-->
+<!--        .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}-->
+<!--        section.card{grid-column:1/-1;background:var(&#45;&#45;card);border:1px solid var(&#45;&#45;line);border-radius:12px;padding:16px}-->
+<!--        h2{margin:0 0 10px 0;font-size:20px;color:#0f66c3}-->
+<!--        p{margin:0 0 10px 0}-->
+<!--        ul{margin:0 0 0 18px;padding:0}-->
+<!--        li{margin:6px 0}-->
+<!--        .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}-->
+<!--        .shots img{width:100%;height:auto;border:1px solid var(&#45;&#45;line);border-radius:10px;background:#fff}-->
+<!--        /* Workflow pills with arrows */-->
+<!--        .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}-->
+<!--        .pill{background:var(&#45;&#45;pill);border:1px solid var(&#45;&#45;line);color:#334155;font-weight:600;padding:8px 12px;border-radius:999px}-->
+<!--        .arrow{width:18px;height:2px;background:linear-gradient(90deg,var(&#45;&#45;brand),var(&#45;&#45;brand2));position:relative}-->
+<!--        .arrow::after{content:"";position:absolute;right:-3px;top:-4px;border-left:6px solid var(&#45;&#45;brand2);border-top:5px solid transparent;border-bottom:5px solid transparent}-->
+<!--        /* Feature cards */-->
+<!--        .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}-->
+<!--        .mini{background:#fff;border:1px solid var(&#45;&#45;line);border-radius:10px;padding:12px}-->
+<!--        .mini h3{margin:0 0 6px 0;font-size:15px}-->
+<!--        .kv{display:grid;grid-template-columns:180px 1fr;gap:10px}-->
+<!--        .callout{border-left:4px solid var(&#45;&#45;brand);background:#f2f5ff;padding:10px;border-radius:6px}-->
+<!--        .footer{color:var(&#45;&#45;muted);text-align:center;margin:14px 0 6px}-->
+<!--        a{color:#6c5ce7;text-decoration:none} a:hover{text-decoration:underline}-->
+<!--        @media (max-width:720px){ h1{font-size:26px} }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
 
-<div class="wrap">
-    <header class="hero">
-        <div class="hero-top">
-            <div class="app-icon" aria-hidden="true"></div>
-            <div>
-                <h1>Recruitment Request</h1>
-                <div class="subtitle">Streamlined hiring requests with role‑based approvals, signatures, stage uploads, and automated email triggers.</div>
-                <div class="badges">
-                    <span class="badge">Odoo 17</span>
-                    <span class="badge">HR / Recruitment</span>
-                    <span class="badge">Multi‑Company &amp; Rule‑Based</span>
-                    <span class="badge">License: LGPL‑3 or OPL‑1</span>
-                </div>
-            </div>
+<!--<div class="wrap">-->
+<!--    <header class="hero">-->
+<!--        <div class="hero-top">-->
+<!--            <div class="app-icon" aria-hidden="true"></div>-->
+<!--            <div>-->
+<!--                <h1>Recruitment Request</h1>-->
+<!--                <div class="subtitle">Streamlined hiring requests with role‑based approvals, signatures, stage uploads, and automated email triggers.</div>-->
+<!--                <div class="badges">-->
+<!--                    <span class="badge">Odoo 17</span>-->
+<!--                    <span class="badge">HR / Recruitment</span>-->
+<!--                    <span class="badge">Multi‑Company &amp; Rule‑Based</span>-->
+<!--                    <span class="badge">License: LGPL‑3 or OPL‑1</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <img class="banner" src="./banners.png" alt="Recruitment request workflow banner">-->
+<!--    </header>-->
+
+<!--&lt;!&ndash;    <main class="grid">&ndash;&gt;-->
+<!--&lt;!&ndash;        <section class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2>Overview</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p><strong>Recruitment Request</strong> provides a clear, auditable hiring request flow: raise a request from a department user, obtain HR and CAO approvals, and let HR create the recruitment record. Designed for multi‑company environments with configurable rules and automated notifications at every stage.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </section>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <section class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2>Approval Workflow</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="flow" aria-label="Raise Dept User to HR Approval to CAO Approval to HR Create Recruitment">&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="pill">Raise (Dept User)</span><span class="arrow" aria-hidden="true"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="pill">HR Approval</span><span class="arrow" aria-hidden="true"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="pill">CAO Approval</span><span class="arrow" aria-hidden="true"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="pill">HR: Create Recruitment</span>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p style="margin-top:10px">Each stage supports: signature, date, file upload, and an automatic email trigger (configurable template per stage).</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </section>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <section class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2>Key Features</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="cards">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="mini">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3>✅ Raise Request (Department)</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>Department user fills role details, justification, cost centre, and attachments.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="mini">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3>✉️ HR & CAO Email Triggers</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>Configurable templates fired on submit, HR approve/reject, CAO approve/reject, and when HR creates the recruitment position.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="mini">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3>🖋 Stage Signatures & Uploads</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>Record signature (binary or e‑sig), signed date, and allow file uploads at every approval stage.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="mini">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3>🌐 Multi‑Company / Rule‑Based</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>Company‑aware rules: route based on company, department, role seniority or cost thresholds.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="mini">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3>⚙️ HR: Create Recruitment</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>After approvals, HR can convert the request to a recruitment record (job, requisition, or vacancy) with one click.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </section>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <section class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2>Compatibility &amp; Dependencies</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="kv">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>Odoo Versions</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>17.0 (Community &amp; Enterprise)</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>Depends</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div><code>hr</code>, <code>hr_recruitment</code>, <code>mail</code></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>License</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>Free: <code>LGPL‑3</code> • Paid: <code>OPL‑1</code></div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </section>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <section class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2>Implementation Notes</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Role‑based access control: use record rules for Dept User, HR, and CAO per company.</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Email templates: create a template per stage and wire them to server actions or automated activities.</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Signatures: store binary signatures and signed date fields on the request; optionally integrate e‑sign services.</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Attachments: use a one2many to store uploaded files per stage for audit.</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Conversion action: provide a smart button for HR to convert request → recruitment/job opening.</li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;        </section>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <section class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2>Contact &amp; Support</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>For support, customization, or to adjust routing rules, please <a href="mailto:akarthikeyan104@gmail.com">contact us</a>.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </section>&ndash;&gt;-->
+<!--&lt;!&ndash;    </main>&ndash;&gt;-->
+
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<div class="module-documentation" style="font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #007bff;">Recruitment Request Workflow</h2>
+
+    <h3 style="color: #007bff;">Overview</h3>
+    <p style="line-height: 1.6;">
+        The Recruitment Request Workflow module streamlines the employee recruitment initiation process in Odoo.
+        It provides a clear, multi-stage approval chain from the department user to HR, CAO, and finally HR recruitment creation.
+        Each stage includes signature capture, signed date recording, file upload, and automatic email notifications.
+        Designed for multi-company environments with strict role-based access control.
+    </p>
+
+    <h3 style="color: #007bff;">Features</h3>
+    <ul style="margin-left: 20px; line-height: 1.6;">
+        <li>Stage-based workflow: Raise Request → HR Approval → CAO Approval → HR Creates Recruitment.</li>
+        <li>Signature, date, and attachment capture at every stage.</li>
+        <li>Automated email triggers with CC support on every stage transition.</li>
+        <li>Multi-company ready with role-based access rules.</li>
+        <li>Direct HR action to create an Odoo Recruitment record from an approved request.</li>
+        <li>Integrated with <code>hr_recruitment</code> and <code>mail</code> modules for seamless operation.</li>
+    </ul>
+
+    <div style="margin: 0 auto;">
+        <div class="oe_demo oe_screenshot">
+            <img class="img-border img-responsive thumbnail" src="banners.png" style="max-width: 500px;">
         </div>
-        <img class="banner" src="./banners.png" alt="Recruitment request workflow banner">
-    </header>
+    </div>
 
-<!--    <main class="grid">-->
-<!--        <section class="card">-->
-<!--            <h2>Overview</h2>-->
-<!--            <p><strong>Recruitment Request</strong> provides a clear, auditable hiring request flow: raise a request from a department user, obtain HR and CAO approvals, and let HR create the recruitment record. Designed for multi‑company environments with configurable rules and automated notifications at every stage.</p>-->
-<!--        </section>-->
+    <div class="highlight" style="background-color: #f0f0f0; padding: 10px; border-radius: 4px; margin-top: 10px;">
+        <h3 style="color: #007bff;">Usage</h3>
+        <p style="line-height: 1.6;">To use the Recruitment Request Workflow module, follow these steps:</p>
+        <ol style="margin-left: 20px;">
+            <li>Install the module in your Odoo 17 instance.</li>
+            <li>Define user roles for Department User, HR, and CAO in the security settings.</li>
+            <li>Create a recruitment request from the department dashboard.</li>
+            <li>Follow the approval flow with digital signatures and attachments at each stage.</li>
+            <li>Upon CAO approval, HR can create a Recruitment record directly from the request.</li>
+        </ol>
+    </div>
 
-<!--        <section class="card">-->
-<!--            <h2>Approval Workflow</h2>-->
-<!--            <div class="flow" aria-label="Raise Dept User to HR Approval to CAO Approval to HR Create Recruitment">-->
-<!--                <span class="pill">Raise (Dept User)</span><span class="arrow" aria-hidden="true"></span>-->
-<!--                <span class="pill">HR Approval</span><span class="arrow" aria-hidden="true"></span>-->
-<!--                <span class="pill">CAO Approval</span><span class="arrow" aria-hidden="true"></span>-->
-<!--                <span class="pill">HR: Create Recruitment</span>-->
-<!--            </div>-->
-<!--            <p style="margin-top:10px">Each stage supports: signature, date, file upload, and an automatic email trigger (configurable template per stage).</p>-->
-<!--        </section>-->
+    <h3 style="color: #007bff;">Compatibility</h3>
+    <p style="line-height: 1.6;">This module is compatible with Odoo 17 (Community & Enterprise).</p>
 
-<!--        <section class="card">-->
-<!--            <h2>Key Features</h2>-->
-<!--            <div class="cards">-->
-<!--                <div class="mini">-->
-<!--                    <h3>✅ Raise Request (Department)</h3>-->
-<!--                    <p>Department user fills role details, justification, cost centre, and attachments.</p>-->
-<!--                </div>-->
-<!--                <div class="mini">-->
-<!--                    <h3>✉️ HR & CAO Email Triggers</h3>-->
-<!--                    <p>Configurable templates fired on submit, HR approve/reject, CAO approve/reject, and when HR creates the recruitment position.</p>-->
-<!--                </div>-->
-<!--                <div class="mini">-->
-<!--                    <h3>🖋 Stage Signatures & Uploads</h3>-->
-<!--                    <p>Record signature (binary or e‑sig), signed date, and allow file uploads at every approval stage.</p>-->
-<!--                </div>-->
-<!--                <div class="mini">-->
-<!--                    <h3>🌐 Multi‑Company / Rule‑Based</h3>-->
-<!--                    <p>Company‑aware rules: route based on company, department, role seniority or cost thresholds.</p>-->
-<!--                </div>-->
-<!--                <div class="mini">-->
-<!--                    <h3>⚙️ HR: Create Recruitment</h3>-->
-<!--                    <p>After approvals, HR can convert the request to a recruitment record (job, requisition, or vacancy) with one click.</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-<!--        <section class="card">-->
-<!--            <h2>Compatibility &amp; Dependencies</h2>-->
-<!--            <div class="kv">-->
-<!--                <div>Odoo Versions</div>-->
-<!--                <div>17.0 (Community &amp; Enterprise)</div>-->
-<!--                <div>Depends</div>-->
-<!--                <div><code>hr</code>, <code>hr_recruitment</code>, <code>mail</code></div>-->
-<!--                <div>License</div>-->
-<!--                <div>Free: <code>LGPL‑3</code> • Paid: <code>OPL‑1</code></div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-<!--        <section class="card">-->
-<!--            <h2>Implementation Notes</h2>-->
-<!--            <ul>-->
-<!--                <li>Role‑based access control: use record rules for Dept User, HR, and CAO per company.</li>-->
-<!--                <li>Email templates: create a template per stage and wire them to server actions or automated activities.</li>-->
-<!--                <li>Signatures: store binary signatures and signed date fields on the request; optionally integrate e‑sign services.</li>-->
-<!--                <li>Attachments: use a one2many to store uploaded files per stage for audit.</li>-->
-<!--                <li>Conversion action: provide a smart button for HR to convert request → recruitment/job opening.</li>-->
-<!--            </ul>-->
-<!--        </section>-->
-
-<!--        <section class="card">-->
-<!--            <h2>Contact &amp; Support</h2>-->
-<!--            <p>For support, customization, or to adjust routing rules, please <a href="mailto:akarthikeyan104@gmail.com">contact us</a>.</p>-->
-<!--        </section>-->
-<!--    </main>-->
-
+    <h3 style="color: #007bff;">Support</h3>
+    <p style="line-height: 1.6;">For any issues or customization inquiries, please contact us at <a href="mailto:akarthikeyan104@gmail.com">akarthikeyan104@gmail.com</a>.</p>
 </div>
-</body>
-</html>
